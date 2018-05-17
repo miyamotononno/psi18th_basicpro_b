@@ -20,7 +20,7 @@ let eachText = css({
   marginBottom: "10%",
   textAlign: "center",
   fontFamily: "Helvetica Neue",
-  padding: "500px 300px 300px 300px",
+  padding: "300px 250px 300px 250px",
   border: "none",
   background: "rgba(0, 0, 0, 0.003)",
   boxShadow: "inset 0 -2px 1px rgba(0,0,0,0.03)"
@@ -53,11 +53,11 @@ class App extends Component {
           <div {...twoColumnBox}>
             <div {...eachText}>
               <h2>Twitter</h2>
-              <p>関連ワード</p>
+              <h3>関連ワード</h3>
             </div>
             <div {...eachText}>
               <h2>Instagram</h2>
-              <p>関連ワード</p>
+              <h3>関連ワード</h3>
             </div>
           </div>
         </body>
