@@ -4,19 +4,20 @@
 #    # installation
 #    $ pip install requests requests_oauthlib
 #
-#    $ python twitter_test.py "検索したい単語"
+#    $ python twitter_test.py 検索したい単語
 #
 
 
 from requests_oauthlib import OAuth1Session
 import json
 import sys
+import config
 
 oath_key_dict = {
-    "consumer_key": "****",
-    "consumer_secret": "****",
-    "access_token": "****",
-    "access_token_secret": "****"
+    "consumer_key": config.consumer_key,
+    "consumer_secret": config.consumer_secret,
+    "access_token": config.access_token,
+    "access_token_secret": config.access_token_secret
 }
 
 max_count = 1000
@@ -50,14 +51,12 @@ def get_text(word):
     #for _ in range(max_count//100):
     while True:
         tweets = tweet_search(word, oath_key_dict, max_id)
-        i = 0
-        for tweet in tweets["statuses"]:
+        for i,tweet in enumerate(tweets["statuses"]):
             text_list.append(tweet[u'text'])
-            i += 1
-            if i == 100:
+            if i == 99:
                 max_id = int(tweet[u'id_str'])-1
         print(len(set(text_list)))
-        if len(set(text_list)) >= max_count:
+        if len(set(text_list)) >= max_count or not len(tweets["statuses"])==1000:
             break
     # 重複や空を削除
     text_list = list(set(text_list))
