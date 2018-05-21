@@ -1,0 +1,17 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+</head>
+<body>
+    <p>Hello {{ message }}  !!!</p>
+    <ul>
+        <li><a href="{{ url_for('index') }}">home</a></li>
+        <li><a href="{{ url_for('page1') }}">page 1</a></li>
+        <li><a href="https://twitter.com/"  target="_blank">Twitterを見てみる</a></li>
+        <li><a href="https://www.instagram.com/"  target="_blank">Instagramを見てみる</a></li>
+    </ul>
+</body>
+</html>

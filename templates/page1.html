@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>page1</title>
+    <!-- CSSファイルを追加 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- 画像読み込みを追加 -->
+   <div id="logo"><img src="{{ url_for('static', filename='logo.png') }}"></div>
+    <div id="app">
+        <h1>チャットボード</h1>
+        <p>{{ message }} world !!!</p>
+    </div>
+</body>
+</html>
