@@ -13,9 +13,14 @@ scroll_count = 0
 for i in range(0,10):
    if scroll_count == 0:
       time.sleep(1)
+   browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+#ブラウザを閉じる
 
 soup = BeautifulSoup(browser.page_source, 'html.parser')
 res1 = soup.findAll('img')
 for elm in res1:
    print(elm['alt'])
 print(len(res1))
+
+browser.close()
