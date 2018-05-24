@@ -24,7 +24,7 @@ oath_key_dict = {
     "access_token_secret": config.access_token_secret
 }
 
-max_count = 100
+max_count = 300
 
 
 
@@ -123,11 +123,14 @@ def texts_pn(texts):
         sys.stdout.flush()
         pn = 0
         for chunk in m.parse(text).splitlines()[:-1]:
-            (surface, feature) = chunk.split('\t')
+            #(surface, feature) = chunk.split('\t')
+            feature = chunk.split('\t')[1]
+            feature = feature.split(",")
             for i in range(5):
-                if feature.startswith(hinshi[i]):
+                if feature[0]==hinshi[i]:
                     for info in pn_info[i]:
-                        if surface == info[0]:
+                        # feature[-3]　は　原型, そのままなら surface
+                        if feature[-3] == info[0] or feature[-3] == info[1]:
                             pn += float(info[2])
                             break
         pn_list.append(pn)
