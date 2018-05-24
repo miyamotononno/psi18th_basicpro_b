@@ -24,7 +24,7 @@ oath_key_dict = {
     "access_token_secret": config.access_token_secret
 }
 
-max_count = 100
+max_count = 300
 
 
 
@@ -122,23 +122,23 @@ def texts_pn(texts):
         sys.stdout.write("\r感情分析中... %d" % i)
         sys.stdout.flush()
         pn = 0
-        node = m.parseToNode(text)
-        while node:
-            feature = node.feature.split(",")
+        for chunk in m.parse(text).splitlines()[:-1]:
+            #(surface, feature) = chunk.split('\t')
+            feature = chunk.split('\t')[1]
+            feature = feature.split(",")
             for i in range(5):
-                if feature[0] == hinshi[i]:
+                if feature[0]==hinshi[i]:
                     for info in pn_info[i]:
-                        if node.surface == info[0]:
+                        # feature[-3]　は　原型, そのままなら surface
+                        if feature[-3] == info[0] or feature[-3] == info[1]:
                             pn += float(info[2])
                             break
-            node = node.next
         pn_list.append(pn)
     return pn_list
 
 def main(word):
     texts = get_text(word)
     pn_list = texts_pn(texts)
-    print(pn_list)
     p_n_neu = [0,0,0]
     for pn in pn_list:
         if pn > 0:
