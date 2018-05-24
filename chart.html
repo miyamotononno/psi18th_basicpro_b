@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" type="text/css">
+  </head>
+  <body>
+    <canvas id="myChart"></canvas>
+    <script src="Chart.js"></script>
+    <script>
+         new Chart(document.getElementById("myChart"), {
+           type: "doughnut",
+           data: {
+             labels: ["ポジティブ","中立","ネガティブ"],
+             datasets: [
+               {
+                 data: [Math.random(), Math.random(), Math.random()],
+                 backgroundColor: [
+                   "rgb(255, 99, 132)",
+                   "rgb(154,130,183)",
+                   "rgb(54, 162, 235)"
+                 ]
+               }
+             ]
+           }
+         });
+    </script>
+  </body>
+</html>
