@@ -1,11 +1,14 @@
 from flask import Flask, render_template
-
+#import twitter_test
 # Flask クラスのインスタンスを作って-> appに代入
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template('index.html', message="こんにちは")
+    # word = "aaa"
+    # test_word = twitter_test.main(word)
+    # python(test_word)
+    return render_template('index.html', message= "test_word")
 
 @app.route("/page1")
 def page1():
