@@ -12,6 +12,7 @@ from requests_oauthlib import OAuth1Session
 import json
 import sys
 import config
+import MeCab
 
 import urllib
 from urllib import request, parse
@@ -23,7 +24,9 @@ oath_key_dict = {
     "access_token_secret": config.access_token_secret
 }
 
-max_count = 200
+max_count = 100
+
+
 
 # 使わない、参考に
 '''
@@ -47,6 +50,20 @@ def main(word):
         #print("user_name:", user_name)
     return tweets
 '''
+def pn_info():
+    f = open("pn_ja.txt",encoding="shift-jis")
+    line = f.readline()
+    pn_info = [[],[],[],[],[]]
+    hinshi = ['形容詞', '動詞', '名詞', '副詞', '助動詞']
+    while line:
+        word_info = line.replace('\n','').split(":")
+        for i in range(5):
+            if word_info[2] == hinshi[i]:
+                word_info.pop(2)
+                pn_info[i].append(word_info)
+        line = f.readline()
+    return pn_info
+
 
 def get_text(word):
     text_list = []
@@ -95,6 +112,47 @@ def tweet_search(search_word, oath_key_dict, max_id=0):
     tweets = json.loads(responce.text)
     return tweets
 
+pn_info = pn_info()
+hinshi = ['形容詞', '動詞', '名詞', '副詞', '助動詞']
+
+def texts_pn(texts):
+    m = MeCab.Tagger()
+    pn_list = []
+    for i,text in enumerate(texts):
+        sys.stdout.write("\r感情分析中... %d" % i)
+        sys.stdout.flush()
+        pn = 0
+        node = m.parseToNode(text)
+        while node:
+            feature = node.feature.split(",")
+            for i in range(5):
+                if feature[0] == hinshi[i]:
+                    for info in pn_info[i]:
+                        if node.surface == info[0]:
+                            pn += float(info[2])
+                            break
+            node = node.next
+        pn_list.append(pn)
+    return pn_list
+
+def main(word):
+    texts = get_text(word)
+    pn_list = texts_pn(texts)
+    print(pn_list)
+    p_n_neu = [0,0,0]
+    for pn in pn_list:
+        if pn > 0:
+            p_n_neu[0] += 1
+        elif pn < 0:
+            p_n_neu[1] += 1
+        else:
+            p_n_neu[2] += 1
+    print (p_n_neu)
+    #return texts, pn_list
+    return p_n_neu
+
+#感情分析API、使えない。。。
+'''
 def posi_or_nega(text):
     # 基本URI
     url = 'http://ap.mextractr.net/ma9/emotion_analyzer?'
@@ -142,6 +200,7 @@ def main(word):
         else:
             posi_nega_neutral[2] += 1
     return posi_nega_neutral
+'''
 
 if __name__ == "__main__":
     print(main(sys.argv[1]))
