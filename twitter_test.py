@@ -122,23 +122,20 @@ def texts_pn(texts):
         sys.stdout.write("\r感情分析中... %d" % i)
         sys.stdout.flush()
         pn = 0
-        node = m.parseToNode(text)
-        while node:
-            feature = node.feature.split(",")
+        for chunk in m.parse(text).splitlines()[:-1]:
+            (surface, feature) = chunk.split('\t')
             for i in range(5):
-                if feature[0] == hinshi[i]:
+                if feature.startswith(hinshi[i]):
                     for info in pn_info[i]:
-                        if node.surface == info[0]:
+                        if surface == info[0]:
                             pn += float(info[2])
                             break
-            node = node.next
         pn_list.append(pn)
     return pn_list
 
 def main(word):
     texts = get_text(word)
     pn_list = texts_pn(texts)
-    print(pn_list)
     p_n_neu = [0,0,0]
     for pn in pn_list:
         if pn > 0:
