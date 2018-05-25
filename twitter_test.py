@@ -28,6 +28,7 @@ max_count = 300
 
 
 
+
 # 使わない、参考に
 '''
 def main(word):
@@ -63,6 +64,12 @@ def pn_info():
                 pn_info[i].append(word_info)
         line = f.readline()
     return pn_info
+
+#　ストップワードのlistを返す
+def stop_word():
+    f = open("Slothlib.txt")
+    lines = f.read()
+    return lines.split()
 
 
 def get_text(word):
@@ -114,31 +121,61 @@ def tweet_search(search_word, oath_key_dict, max_id=0):
 
 pn_info = pn_info()
 hinshi = ['形容詞', '動詞', '名詞', '副詞', '助動詞']
+stops = stop_word()
 
-def texts_pn(texts):
+def texts_pn(texts, word):
     m = MeCab.Tagger()
     pn_list = []
+    relate = {}
     for i,text in enumerate(texts):
-        sys.stdout.write("\r感情分析中... %d" % i)
+        sys.stdout.write("\r感情分析中... %d" % (i+1))
         sys.stdout.flush()
         pn = 0
         for chunk in m.parse(text).splitlines()[:-1]:
             #(surface, feature) = chunk.split('\t')
+            if len(chunk.split('\t')) != 2:
+                continue
             feature = chunk.split('\t')[1]
             feature = feature.split(",")
+
+            #関連単語カウント
+            #if feature[-3] in relate.keys():
+            #    relate[feature[-3]] += 1
+            #else:
+            #    relate[feature[-3]] = 1
+
+
             for i in range(5):
                 if feature[0]==hinshi[i]:
                     for info in pn_info[i]:
                         # feature[-3]　は　原型, そのままなら surface
                         if feature[-3] == info[0] or feature[-3] == info[1]:
                             pn += float(info[2])
+                            if i == 0 or i == 2 or i == 1:
+                                if feature[-3] in relate.keys():
+                                    relate[feature[-3]] += 1
+                                elif (not feature[-3] in stops) and feature[-3] != word:
+                                    relate[feature[-3]] = 1
+
                             break
         pn_list.append(pn)
-    return pn_list
+    return pn_list, relate
 
 def main(word):
     texts = get_text(word)
-    pn_list = texts_pn(texts)
+    pn_list, relate = texts_pn(texts, word)
+    print(len(relate))
+    #print(max([(v,k) for k,v in relate.items()]))
+
+    sorted_list = sorted(relate.items(), key=lambda x:x[1], reverse=True)
+    print(sorted_list[:10])
+    i=0
+    freq = []
+    #while i < 5:
+    #    k,v = sorted_dic.next
+    #    freq.append([k,v])
+    #    i += 1
+    #print(freq)
     p_n_neu = [0,0,0]
     for pn in pn_list:
         if pn > 0:
@@ -149,7 +186,7 @@ def main(word):
             p_n_neu[2] += 1
     print (p_n_neu)
     #return texts, pn_list
-    return p_n_neu
+    return p_n_neu, sorted_list[:10]
 
 #感情分析API、使えない。。。
 '''
