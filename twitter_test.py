@@ -139,23 +139,25 @@ def texts_pn(texts, word):
             feature = feature.split(",")
 
             #関連単語カウント
-            #if feature[-3] in relate.keys():
-            #    relate[feature[-3]] += 1
-            #else:
-            #    relate[feature[-3]] = 1
+            if feature[0] in hinshi[0:3] and (not feature[1] in ["非自立","接尾","特殊","代名詞"]):
+                if feature[-3] in relate.keys():
+                    relate[feature[-3]] += 1
+                elif (not feature[-3] in stops) and feature[-3] != word:
+                    relate[feature[-3]] = 1
 
 
             for i in range(5):
                 if feature[0]==hinshi[i]:
                     for info in pn_info[i]:
                         # feature[-3]　は　原型, そのままなら surface
-                        if feature[-3] == info[0] or feature[-3] == info[1]:
+                        if (feature[-3] == info[0] or feature[-3] == info[1]) and abs(float(info[2]))>0.9 :
+
                             pn += float(info[2])
-                            if i == 0 or i == 2 or i == 1:
-                                if feature[-3] in relate.keys():
-                                    relate[feature[-3]] += 1
-                                elif (not feature[-3] in stops) and feature[-3] != word:
-                                    relate[feature[-3]] = 1
+                            #if i < 3 :
+                             #   if feature[-3] in relate.keys():
+                              #      relate[feature[-3]] += 1
+                               # elif (not feature[-3] in stops) and feature[-3] != word:
+                                #    relate[feature[-3]] = 1
 
                             break
         pn_list.append(pn)
