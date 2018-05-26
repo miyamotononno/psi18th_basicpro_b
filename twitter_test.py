@@ -13,6 +13,8 @@ import json
 import sys
 import config
 import MeCab
+import multiprocessing as mp
+import time
 
 import urllib
 from urllib import request, parse
@@ -25,6 +27,7 @@ oath_key_dict = {
 }
 
 max_count = 300
+num_process = 2
 
 
 
@@ -138,41 +141,65 @@ def texts_pn(texts, word):
             feature = chunk.split('\t')[1]
             feature = feature.split(",")
 
-            #関連単語カウント
+            # 関連単語カウント
             if feature[0] in hinshi[0:3] and (not feature[1] in ["非自立","接尾","特殊","代名詞"]):
                 if feature[-3] in relate.keys():
                     relate[feature[-3]] += 1
                 elif (not feature[-3] in stops) and feature[-3] != word:
                     relate[feature[-3]] = 1
 
-
+            # ポジネガ数値計算
             for i in range(5):
                 if feature[0]==hinshi[i]:
                     for info in pn_info[i]:
                         # feature[-3]　は　原型, そのままなら surface
-                        if (feature[-3] == info[0] or feature[-3] == info[1]) and abs(float(info[2]))>0.9 :
-
+                        if (feature[-3] == info[0] or feature[-3] == info[1]) and abs(float(info[2]))>0.9:
                             pn += float(info[2])
-                            #if i < 3 :
-                             #   if feature[-3] in relate.keys():
-                              #      relate[feature[-3]] += 1
-                               # elif (not feature[-3] in stops) and feature[-3] != word:
-                                #    relate[feature[-3]] = 1
-
                             break
         pn_list.append(pn)
     return pn_list, relate
 
+def wrap_texts_pn(texts_word):
+    return texts_pn(*texts_word)
+
+def split_array(ar, n_group):
+    splited = []
+    for i_chunk in range(n_group):
+        splited.append(ar[i_chunk * len(ar) // n_group:(i_chunk + 1) * len(ar) // n_group])
+    return splited
+
 def main(word):
+    start = time.time()
     texts = get_text(word)
-    pn_list, relate = texts_pn(texts, word)
-    print(len(relate))
+    #pn_list, relate = texts_pn(texts, word)
+
+
+    split_text = split_array(texts,num_process)
+    print(len(split_text),"プロセス")
+
+    pool = mp.Pool(num_process)
+    args = [(i, word) for i in split_text]
+    callbacks = pool.map(wrap_texts_pn, args)
+    pn_list = []
+    relate = {}
+    for callback in callbacks:
+        pn_list = pn_list + callback[0]
+        relate.update(callback[1])
+    #print(callbacks)
+
+    #jobs = []
+    #for splited in split_texts:
+    #    job = multiprocessing.Process(target=texts_pn, args=(splited, ))
+    #    jobs
+
+
+    #print(len(relate))
     #print(max([(v,k) for k,v in relate.items()]))
 
     sorted_list = sorted(relate.items(), key=lambda x:x[1], reverse=True)
-    print(sorted_list[:10])
-    i=0
-    freq = []
+    print("\n",sorted_list[:10])
+    #i=0
+    #freq = []
     #while i < 5:
     #    k,v = sorted_dic.next
     #    freq.append([k,v])
@@ -188,6 +215,7 @@ def main(word):
             p_n_neu[1] += 1
     print (p_n_neu)
     #return texts, pn_list
+    print(time.time() - start)
     return p_n_neu, sorted_list[:10]
 
 #感情分析API、使えない。。。
@@ -242,4 +270,4 @@ def main(word):
 '''
 
 if __name__ == "__main__":
-    print(main(sys.argv[1]))
+    main(sys.argv[1])
