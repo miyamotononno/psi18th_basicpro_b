@@ -1,18 +1,38 @@
 
-
 var positiveValue = 1;
 var neutralValue = 1;
 var negativeValue = Math.random();
+
+var input_value = 1;
 function onButtonSubmit(){
-    positiveValue = parseFloat(document.form1.inputboxname.value);
-    console.log(document.form1.inputboxname.value);
-    console.log("aaaa")
-    piechart.data.datasets[0].data[0] = positiveValue;
-    barchart.data.datasets[0].data[0] = positiveValue;
-    piechart.update();
-    barchart.update();
-    return false;
- }
+
+  input_value = parseFloat(document.form1.inputboxname.value);
+      $.ajax({
+      type: 'post',
+      url: "/twitter",
+      data: JSON.stringify({ 'value': input_value }),
+      contentType: 'application/JSON',
+      dataType: 'JSON',
+      scriptCharset: 'utf-8',
+      success: function (data) {
+        // Success
+        // data['result']の値を使って表示する
+        alert(json_post(input_value));
+        console.log(data['result'])
+      },
+      error: function (data) {
+        // Error
+        console.error("error post clip");
+      }
+    });
+
+  piechart.data.datasets[0].data[0] = input_value;
+  barchart.data.datasets[0].data[0] = positiveValue;
+  piechart.update();
+  barchart.update();
+
+  return false;
+}
 
 var piechart = new Chart(document.getElementById("myPiechart"), {
   type: "doughnut",
@@ -20,7 +40,7 @@ var piechart = new Chart(document.getElementById("myPiechart"), {
     labels: ["ポジティブ","中立","ネガティブ"],
     datasets: [
       {
-        data: [positiveValue, neutralValue, negativeValue], //本当はMath.random()
+        data: [input_value, neutralValue, negativeValue], //本当はMath.random()
         backgroundColor: [
           "rgb(255, 99, 132)",
           "rgb(154,130,183)",
@@ -36,7 +56,7 @@ var barchart = new Chart(document.getElementById("myBargraph"),{
     data:{
       labels: ['1位','2位','3位'],
       datasets: [{
-        data: [positiveValue ,Math.random(),Math.random()],
+        data: [input_value ,Math.random(),Math.random()],
         backgroundColor: ['#FF4444', '#4444FF', '#44BB44', '#FFFF44', '#FF44FF']
       }]
     },

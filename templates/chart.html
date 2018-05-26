@@ -8,9 +8,9 @@
     <li><a href="{{ url_for('index') }}">戻る</a></li>
     <canvas id="myPiechart"></canvas>
     <h1>円グラフ表示してる</h1>
-    <form name="form1" id="id_form" onsubmit="return onButtonSubmit();">
+    <form action="./get_post" name="form1" onsubmit="return onButtonSubmit();">
       <span>検索ワード入力:</span>
-      <input type="text" name="inputboxname" size="20" id="id_textBox" value="" >
+      <input type="text" name="inputboxname" size="20" value="" >
       <input type="submit" value="送信">
     </form>
     <canvas id="myBargraph">
