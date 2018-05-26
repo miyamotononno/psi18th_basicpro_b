@@ -1,36 +1,41 @@
 
 var positiveValue = 1;
 var neutralValue = 1;
-var negativeValue = Math.random();
+var negativeValue = 1;
 
 var input_value = 1;
 function onButtonSubmit(){
 
-  input_value = parseFloat(document.form1.inputboxname.value);
-      $.ajax({
-      type: 'post',
-      url: "/twitter",
-      data: JSON.stringify({ 'value': input_value }),
-      contentType: 'application/JSON',
-      dataType: 'JSON',
-      scriptCharset: 'utf-8',
-      success: function (data) {
-        // Success
-        // data['result']の値を使って表示する
-        alert(data['result']);
-        console.log(data['result'])
-      },
-      error: function (data) {
-        // Error
-        console.error("error post clip");
-      }
-    });
-
-  piechart.data.datasets[0].data[0] = input_value;
-  barchart.data.datasets[0].data[0] = positiveValue;
-  piechart.update();
-  barchart.update();
-
+  input_value = document.form1.inputboxname.value;
+  console.log(input_value);
+  $.ajax({
+    type: 'post',
+    url: "/twitter",
+    data: JSON.stringify({ 'value': input_value }),
+    contentType: 'application/JSON',
+    dataType: 'JSON',
+    scriptCharset: 'utf-8',
+    success: function (data) {
+    //  alert(data['result']);
+      console.log(data['result'][0])
+      console.log(data['result'][0][0])
+      positiveValue = data['result'][0][0]
+      negativeValue = data['result'][0][1]
+      neutralValue = data['result'][0][2]
+      piechart.data.datasets[0].data[0] = positiveValue;
+      piechart.data.datasets[0].data[1] = negativeValue;
+      piechart.data.datasets[0].data[2] = neutralValue;
+      barchart.data.datasets[0].data[0] = positiveValue;
+      barchart.data.datasets[0].data[1] = negativeValue;
+      barchart.data.datasets[0].data[2] = positiveValue;
+      piechart.update();
+      barchart.update();
+    },
+    error: function (data) {
+      console.error("error post clip");
+    }
+  });
+//  console.log(data['result'][0][1])
   return false;
 }
 
@@ -40,7 +45,7 @@ var piechart = new Chart(document.getElementById("myPiechart"), {
     labels: ["ポジティブ","中立","ネガティブ"],
     datasets: [
       {
-        data: [input_value, neutralValue, negativeValue], //本当はMath.random()
+        data: [positiveValue, neutralValue, negativeValue], //本当はMath.random()
         backgroundColor: [
           "rgb(255, 99, 132)",
           "rgb(154,130,183)",
@@ -56,7 +61,7 @@ var barchart = new Chart(document.getElementById("myBargraph"),{
     data:{
       labels: ['1位','2位','3位'],
       datasets: [{
-        data: [input_value ,Math.random(),Math.random()],
+        data: [positiveValue ,negativeValue,neutralValue],
         backgroundColor: ['#FF4444', '#4444FF', '#44BB44', '#FFFF44', '#FF44FF']
       }]
     },
