@@ -183,9 +183,9 @@ def main(word):
         if pn > 0:
             p_n_neu[0] += 1
         elif pn < 0:
-            p_n_neu[1] += 1
-        else:
             p_n_neu[2] += 1
+        else:
+            p_n_neu[1] += 1
     print (p_n_neu)
     #return texts, pn_list
     return p_n_neu, sorted_list[:10]
