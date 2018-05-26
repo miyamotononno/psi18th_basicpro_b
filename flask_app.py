@@ -1,3 +1,4 @@
+import json
 from flask import Flask, render_template, request, jsonify
 import twitter_test
 # Flask クラスのインスタンスを作って-> appに代入

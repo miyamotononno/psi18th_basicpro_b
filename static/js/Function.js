@@ -17,7 +17,7 @@ function onButtonSubmit(){
       success: function (data) {
         // Success
         // data['result']の値を使って表示する
-        alert(json_post(input_value));
+        alert(data['result']);
         console.log(data['result'])
       },
       error: function (data) {
