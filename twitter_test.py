@@ -297,6 +297,7 @@ def main_all():
     return p_n_neu
 
 def insta(word):
+    start = time.time()
     texts = st.instagram(word,max_count)
     split_text = split_array(texts,num_process)
     print(len(split_text),"プロセス")
