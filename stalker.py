@@ -42,4 +42,5 @@ def instagram(word, N):   #word = 検索対象の用語, N = 目標習得数
       browser.close() #ブラウザを閉じる
       return elements
 
-instagram("サッカー",300)
+if __name__ == "__main__":
+   instagram("サッカー",300)

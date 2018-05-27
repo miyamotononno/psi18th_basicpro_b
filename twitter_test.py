@@ -15,6 +15,7 @@ import config
 import MeCab
 import multiprocessing as mp
 import time
+import stalker as st
 
 import urllib
 from urllib import request, parse
@@ -171,6 +172,7 @@ def texts_pn(texts, word):
         sys.stdout.write("\r感情分析中... %d" % (i+1))
         sys.stdout.flush()
         pn = 0
+        text = text.replace("#","")
         for chunk in m.parse(text).splitlines()[:-1]:
             #(surface, feature) = chunk.split('\t')
             if len(chunk.split('\t')) != 2:
@@ -203,6 +205,7 @@ def texts_pn_all(texts):
         sys.stdout.write("\r感情分析中... %d" % (i+1))
         sys.stdout.flush()
         pn = 0
+        text = text.replace("#","")
         for chunk in m.parse(text).splitlines()[:-1]:
             #(surface, feature) = chunk.split('\t')
             if len(chunk.split('\t')) != 2:
@@ -280,7 +283,6 @@ def main_all():
     for callback in callbacks:
         pn_list = pn_list + callback
 
-
     p_n_neu = [0,0,0]
     for pn in pn_list:
         if pn > 0:
@@ -293,6 +295,37 @@ def main_all():
     #return texts, pn_list
     print(time.time() - start)
     return p_n_neu
+
+def insta(word):
+    texts = st.instagram(word,max_count)
+    split_text = split_array(texts,num_process)
+    print(len(split_text),"プロセス")
+
+    pool = mp.Pool(num_process)
+    args = [(i, word) for i in split_text]
+    callbacks = pool.map(wrap_texts_pn, args)
+    pn_list = []
+    relate = {}
+    for callback in callbacks:
+        pn_list = pn_list + callback[0]
+        relate.update(callback[1])
+    sorted_list = sorted(relate.items(), key=lambda x:x[1], reverse=True)
+    print("\n",sorted_list[:10])
+
+    p_n_neu = [0,0,0]
+    for pn in pn_list:
+        if pn > 0:
+            p_n_neu[0] += 1
+        elif pn < 0:
+            p_n_neu[2] += 1
+        else:
+            p_n_neu[1] += 1
+    print (p_n_neu)
+    #return texts, pn_list
+    print(time.time() - start)
+    return p_n_neu, sorted_list[:10]
+
+
 
 #感情分析API、使えない。。。
 '''
@@ -346,5 +379,6 @@ def main(word):
 '''
 
 if __name__ == "__main__":
-    main_all()
+    #main_all()
     #main(sys.argv[1])
+    insta(sys.argv[1])
