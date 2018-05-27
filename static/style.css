@@ -6,7 +6,7 @@ body{
     font-family: "Nico Moji", sans-serif;
 }
 
-h1, h2{
+/* h1, h2{
     color: #dc8a07;
     font-size: 13px;
     padding: 10px 0 0 0;
@@ -32,37 +32,32 @@ a {
 }
 a:hover {
     background: #0090aa;
+} */
+.allBody{
+  padding: 20px;
 }
-
-#logo{
-    width: 220px;
-}
-
-#logo img{
-    width: 220px;
-}
-
-#app{
-    background-color: white;
-    width: 500px;
-}
-.eachBody{
-  height: 100vh;
-  width: 100%;
+#twitterBody{
+  float: left;
+  height: 50%;
+  width: 50%;
   text-align: center;
-  display: flex;
+  flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-}
-.twitterBody{
-  background: url(/twitterTLimage.jpeg) no-repeat top center;
-  background-size: cover;
   color: rgba(255,255,255,.7);
 }
-.instaBody{
-  background: url(/instaTLimage.png) no-repeat top center;
-  background-size: cover;
+#instaBody{
+  float: right;
+  height: 50%;
+  width: 50%;
+  text-align: center;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
   color: rgba(0,0,0,.7);
+}
+.chart{
+  padding: 100px;
 }
 
 @media all and (min-width: 500px) {

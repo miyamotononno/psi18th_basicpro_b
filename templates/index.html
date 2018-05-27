@@ -1,17 +1,44 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>home</title>
-</head>
-<body>
-    <p>Hello!!!</p>
-    <ul>
-        <li><a href="{{ url_for('index') }}">home</a></li>
-        <li><a href="{{ url_for('chart') }}">円グラフ見る</a></li>
-        <li><a href="https://twitter.com/"  target="_blank">Twitterを見てみる</a></li>
-        <li><a href="https://www.instagram.com/"  target="_blank">Instagramを見てみる</a></li>
-    </ul>
-</body>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Watch Emotion on SNS</h1>
+      <form action="./get_post" name="form1" onsubmit="return onButtonSubmit();">
+        <span>検索ワード入力:</span>
+        <input type="text" name="inputboxname" size="20" value="" >
+        <input type="submit" value="送信">
+      </form>
+    </header>
+    <div class="allBody">
+      <div id="twitterBody" >
+        <div class="chart">
+          <canvas id="twitterPiechart"></canvas>
+        </div>
+        <div class="chart">
+          <canvas id="twitterBargraph"></canvas>
+        </div>
+      </div>
+      <div id="instaBody">
+        <div class="chart">
+          <canvas id="instaPiechart"></canvas>
+        </div>
+        <div class="chart">
+          <canvas id="instaBargraph"></canvas>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>created by teamC</p>
+      <a href="https://twitter.com/"  target="_blank">Twitterを見てみる</a>
+      <a href="https://www.instagram.com/"  target="_blank">Instagramを見てみる</a>
+    </footer>
+    <script src="static/js/Chart.js" type="text/javascript"></script>
+    <script src="static/js/TwitterFunc.js" type="text/javascript"></script>
+    <script src="static/js/InstaFunc.js" type="text/javascript"></script>
+  </body>
 </html>

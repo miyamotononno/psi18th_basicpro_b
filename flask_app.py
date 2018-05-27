@@ -8,10 +8,6 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route("/chart")
-def chart():
-    return render_template('chart.html')
-
 @app.route('/twitter', methods=['POST'])
 def twitter():
     data = json.loads(request.data)
