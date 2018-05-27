@@ -9,7 +9,7 @@
   </head>
   <body>
     <header>
-      <h1>Watch Emotion on SNS</h1>
+      <h1>Watch Emotions in Timeline</h1>
       <form action="./get_post" name="form1" onsubmit="return onButtonSubmit();">
         <span>検索ワード入力:</span>
         <input type="text" name="inputboxname" size="20px" value="" >
@@ -20,6 +20,9 @@
       <div id="twitterBody" >
         <img src="static/twitterLogo.png" width=53.4px height=40px>
         <a>Twitter</a>
+        <div class="chart">
+          <canvas id="twitterAllPiechart"></canvas>
+        </div>
         <div class="chart">
           <canvas id="twitterPiechart"></canvas>
         </div>

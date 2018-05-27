@@ -8,9 +8,9 @@ from selenium import webdriver
 def instagram(word, N):   #word = 検索対象の用語, N = 目標習得数
       url = "https://www.instagram.com/explore/tags/" + par.quote_plus(word, encoding='utf-8')
       link = req.urlopen(url)
-      browser = webdriver.Chrome('C:\selenium\Chromedriver')   #ChromeDriverをダウンロードして、Chromedriver.exeの存在場所をパスで示す
+      browser = webdriver.Chrome('chromedriver') #webdriver.Chrome('C:\selenium\Chromedriver')   #ChromeDriverをダウンロードして、Chromedriver.exeの存在場所をパスで示す
       browser.get(url)
-      
+
       instagram = []
       for scroll_count in range(1,N):
             time.sleep(0.5)
@@ -38,7 +38,7 @@ def instagram(word, N):   #word = 検索対象の用語, N = 目標習得数
       for i in instagram:
             j = str(i)
             elements.append(j[10:j.find('" class=')])
-      
+
       browser.close() #ブラウザを閉じる
       return elements
 
