@@ -28,7 +28,7 @@ oath_key_dict = {
     "access_token_secret": config.access_token_secret
 }
 
-max_count = 10000
+max_count = 200
 num_process = 2
 
 
@@ -413,6 +413,6 @@ def main(word):
 '''
 
 if __name__ == "__main__":
-    main_all()
-    #print("Twitter\n",main(sys.argv[1]))
-    #print("Instagram\n",insta(sys.argv[1]))
+    #main_all()
+    print("Twitter\n",main(sys.argv[1]))
+    print("Instagram\n",insta(sys.argv[1]))
