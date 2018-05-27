@@ -1,31 +1,80 @@
 body{
-    background-color: #EEE;
-    color: #333;
+    /* background-color: #EEE;
+    color: #333; */
     text-align:center;
     font-size: 12px;
+    /* font-family: "Nico Moji", sans-serif; */
 }
 
-h1, h2{
+h1{
     color: #dc8a07;
-    font-size: 13px;
+    font-size: 50px;
     padding: 10px 0 0 0;
+    font-family: 'Creepster', cursive;
+}
+h2 {
+  color: #dc8a07;
+  font-size: 20px;
+  padding: 10px 0 0 0;
+  font-family: 'Alegreya Sans SC', sans-serif;
 }
 
-div{
+/* div{
    border-radius: 6px;
    margin: 10px auto;
    padding: 20px;
+} */
+#teamC {
+    padding-right: 40px;
+    padding-right: 40px;
+    font-size: 0.8rem;
+    float: right;
+}
+a {
+    font-size: 40px;
+    border-radius: 5px;
+    padding: 10px 10px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 18px;
+    font-family: 'Alegreya Sans SC', sans-serif;
+}
+/* #instaTitle {
+  margin: 0 0 0 0;
+} */
+/*
+a:hover {
+    background: #0090aa;
+} */
+.allBody{
+  padding: 20px;
+}
+#twitterBody{
+  float: left;
+  height: 50%;
+  width: 50%;
+  text-align: center;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  color: rgba(0,0,0,.7);
+}
+#instaBody{
+  float: right;
+  height: 50%;
+  width: 50%;
+  text-align: center;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  color: rgba(0,0,0,.7);
+}
+.chart{
+  padding: 20px;
 }
 
-#logo{
-    width: 220px;
-}
-
-#logo img{
-    width: 220px;
-}
-
-#app{
-    background-color: white;
-    width: 500px;
+@media all and (min-width: 500px) {
+  .wrapper {
+    display: flex;
+  }
 }

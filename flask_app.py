@@ -8,19 +8,11 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route("/chart")
-def chart():
-    return render_template('chart.html')
-
 @app.route('/twitter', methods=['POST'])
 def twitter():
     data = json.loads(request.data)
-    #print("data:", data)
+    print("data:", data)
     result = twitter_test.main(data["value"])
-    # print("result:", result)
-    # print("result[1]",result[1])
-    # print("result[1][0]",result[1][0])
-    # print("result[1][0][0]",result[1][0][0])
     return jsonify({'result': result})
 
 if __name__ == "__main__":
