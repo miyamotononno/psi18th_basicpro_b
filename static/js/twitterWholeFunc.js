@@ -14,7 +14,7 @@ var tweet_bar_count5 = 0.2;
 
 
 var tweet_input_value = "twitter";
-function onButtonTwitter(){
+function onButtonSubmit(){
 
   tweet_input_value = document.form1.inputboxname.value;
   $.ajax({
