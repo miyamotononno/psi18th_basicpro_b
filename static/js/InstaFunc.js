@@ -15,7 +15,7 @@ var bar_count5 = 0;
 
 var input_value = "instagram";
 function onButtonSubmit(){
-
+  // dispLoading("処理中...");
   input_value = document.form1.inputboxname.value;
   $.ajax({
     type: 'post',
@@ -53,9 +53,11 @@ function onButtonSubmit(){
       barchart.data.datasets[0].data[4] = bar_count5;
       piechart.update();
       barchart.update();
+      // showMsg("成功しました");
     },
     error: function (data) {
       console.error("error post clip");
+      // showMsg("失敗しました");
     }
   });
   return false;

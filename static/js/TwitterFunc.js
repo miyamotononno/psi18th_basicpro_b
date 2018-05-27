@@ -12,7 +12,6 @@ var bar_count3 = 0.6;
 var bar_count4 = 0.4;
 var bar_count5 = 0.2;
 
-
 var input_value = "twitter";
 function onButtonSubmit(){
 

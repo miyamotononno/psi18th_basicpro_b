@@ -9,9 +9,11 @@ word = input('検索用語:')
 N = (int)(input('習得件数（目標）:'))
 
 url = "https://www.instagram.com/explore/tags/" + par.quote_plus(word, encoding='utf-8')
+print("url:",url)
 link = req.urlopen(url)
-
+print("link:",link)
 browser = webdriver.Chrome('C:\selenium\Chromedriver')
+print("browser:",browser)
 browser.get(url)
 
 instagram = []
@@ -45,4 +47,3 @@ for i in instagram:
 
 print(elements[100])
 browser.close() #ブラウザを閉じる
-

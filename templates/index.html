@@ -9,14 +9,14 @@
   </head>
   <body>
     <header>
-      <h1>Watch Emotion on SNS</h1>
-      <form action="./get_post" name="form1" onsubmit="return onButtonSubmit();">
+      <h1>Watch Emotion on Timeline</h1>
+      <form action="./get_post" name="form1" onsubmit="return  onButtonLoading();onButtonSubmit();">
         <span>検索ワード入力:</span>
         <input type="text" name="inputboxname" size="20px" value="" >
         <input type="submit" value="送信">
       </form>
     </header>
-    <div class="allBody">
+    <div id="allBody">
       <div id="twitterBody" >
         <img src="static/twitterLogo.png" width=53.4px height=40px>
         <a>Twitter</a>
@@ -26,7 +26,7 @@
         <div class="chart">
           <canvas id="twitterBargraph"></canvas>
         </div>
-        <h2 href="https://twitter.com/">Twitterを見てみる</h2>
+        <h2 href="https://twitter.com/" >Twitterを見てみる</h2>
       </div>
       <div id="instaBody">
         <img src="static/instagram_newlogo.png" width=64px height=48px>
@@ -46,5 +46,46 @@
     <script src="static/js/Chart.js" type="text/javascript"></script>
     <script src="static/js/TwitterFunc.js" type="text/javascript"></script>
     <script src="static/js/InstaFunc.js" type="text/javascript"></script>
+    <script>
+      function dispLoading(msg){
+        if( msg == undefined ){
+          msg = "";
+        }
+        var dispMsg = "<div class='loadingMsg'>" + msg + "</div>";
+        if($("#loading").length == 0){
+          $("body").append("<div id='loading'>" + dispMsg + "</div>");
+        }
+      }
+
+      function removeLoading(){
+        $("#loading").remove();
+      }
+
+      function onButtonLoading(){
+          // 処理前に Loading 画像を表示
+        dispLoading("処理中...");
+
+          // 非同期処理
+        $.ajax({
+            url : "/twitter",
+            type:"GET",
+            dataType:"json"
+          })
+          // 通信成功時
+          .done( function(data) {
+            showMsg("成功しました");
+          })
+          // 通信失敗時
+          .fail( function(data) {
+            showMsg("失敗しました");
+          })
+          // 処理終了時
+          .always( function(data) {
+            // Lading 画像を消す
+            removeLoading();
+          });
+        return false;
+       }
+    </script>
   </body>
 </html>
