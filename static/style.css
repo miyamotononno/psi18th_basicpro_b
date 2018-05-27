@@ -3,6 +3,7 @@ body{
     color: #333;
     text-align:center;
     font-size: 12px;
+    font-family: "Nico Moji", sans-serif;
 }
 
 h1, h2{
@@ -16,6 +17,22 @@ div{
    margin: 10px auto;
    padding: 20px;
 }
+p {
+    font-size: 1.5rem;
+}
+a {
+    font-size: 2rem;
+    background: #0bd;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 18px;
+}
+a:hover {
+    background: #0090aa;
+}
 
 #logo{
     width: 220px;
@@ -28,4 +45,28 @@ div{
 #app{
     background-color: white;
     width: 500px;
+}
+.eachBody{
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.twitterBody{
+  background: url(/twitterTLimage.jpeg) no-repeat top center;
+  background-size: cover;
+  color: rgba(255,255,255,.7);
+}
+.instaBody{
+  background: url(/instaTLimage.png) no-repeat top center;
+  background-size: cover;
+  color: rgba(0,0,0,.7);
+}
+
+@media all and (min-width: 500px) {
+  .wrapper {
+    display: flex;
+  }
 }
