@@ -381,5 +381,5 @@ def main(word):
 
 if __name__ == "__main__":
     #main_all()
-    #main(sys.argv[1])
-    insta(sys.argv[1])
+    print("Twitter\n",main(sys.argv[1]))
+    print("Instagram\n",insta(sys.argv[1]))
