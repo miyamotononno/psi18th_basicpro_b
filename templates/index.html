@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Economica:700" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   </head>
   <body>
@@ -10,34 +12,36 @@
       <h1>Watch Emotion on SNS</h1>
       <form action="./get_post" name="form1" onsubmit="return onButtonSubmit();">
         <span>検索ワード入力:</span>
-        <input type="text" name="inputboxname" size="20" value="" >
+        <input type="text" name="inputboxname" size="20px" value="" >
         <input type="submit" value="送信">
       </form>
     </header>
     <div class="allBody">
       <div id="twitterBody" >
-        <p>Twitter</p>
+        <img src="static/twitterLogo.png" width=53.4px height=40px>
+        <a>Twitter</a>
         <div class="chart">
           <canvas id="twitterPiechart"></canvas>
         </div>
         <div class="chart">
           <canvas id="twitterBargraph"></canvas>
         </div>
+        <h2 href="https://twitter.com/">Twitterを見てみる</h2>
       </div>
       <div id="instaBody">
-        <p>Instagram</p>
+        <img src="static/instagram_newlogo.png" width=64px height=48px>
+        <a id="instaTitle">Instagram</a>
         <div class="chart">
           <canvas id="instaPiechart"></canvas>
         </div>
         <div class="chart">
           <canvas id="instaBargraph"></canvas>
         </div>
+        <h2 href="https://www.instagram.com/">Instagramを見てみる</h2>
       </div>
     </div>
     <footer>
-      <p>created by teamC</p>
-      <a href="https://twitter.com/"  target="_blank">Twitterを見てみる</a>
-      <a href="https://www.instagram.com/"  target="_blank">Instagramを見てみる</a>
+      <p id="teamC">created by teamC</p>
     </footer>
     <script src="static/js/Chart.js" type="text/javascript"></script>
     <script src="static/js/TwitterFunc.js" type="text/javascript"></script>
