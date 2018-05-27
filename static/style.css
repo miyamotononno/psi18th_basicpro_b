@@ -16,11 +16,11 @@ div{
    border-radius: 6px;
    margin: 10px auto;
    padding: 20px;
-}
+}*/
 p {
     font-size: 1.5rem;
 }
-a {
+/*a {
     font-size: 2rem;
     background: #0bd;
     border-radius: 5px;
@@ -44,7 +44,7 @@ a:hover {
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  color: rgba(255,255,255,.7);
+  color: rgba(0,0,0,.7);
 }
 #instaBody{
   float: right;
