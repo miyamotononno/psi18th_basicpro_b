@@ -18,11 +18,11 @@ def instagram(word, N):   #word = 検索対象の用語, N = 目標習得数
             if scroll_count %3 == 0:
                   soup = BeautifulSoup(browser.page_source, 'html.parser')
                   res = soup.findAll('img')
-      for elm in res:
-            instagram.append(elm)
-            print(len(set(instagram)))
-      if len(set(instagram)) > N:
-            break
+                  for elm in res:
+                        instagram.append(elm)
+                  print(len(set(instagram)))
+                  if len(set(instagram)) > N:
+                        break
 
       print('習得件数',len(set(instagram)))
       print('習得時間',time.time() - start)
@@ -42,3 +42,4 @@ def instagram(word, N):   #word = 検索対象の用語, N = 目標習得数
       browser.close() #ブラウザを閉じる
       return elements
 
+instagram("サッカー",300)
