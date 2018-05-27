@@ -16,6 +16,7 @@ import MeCab
 import multiprocessing as mp
 import time
 import stalker as st
+import re
 
 import urllib
 from urllib import request, parse
@@ -27,7 +28,7 @@ oath_key_dict = {
     "access_token_secret": config.access_token_secret
 }
 
-max_count = 300
+max_count = 200
 num_process = 2
 
 
@@ -173,6 +174,8 @@ def texts_pn(texts, word):
         sys.stdout.flush()
         pn = 0
         text = text.replace("#","")
+        text = re.sub(r'[a-z]+', "", text)
+        #print(text)
         for chunk in m.parse(text).splitlines()[:-1]:
             #(surface, feature) = chunk.split('\t')
             if len(chunk.split('\t')) != 2:
@@ -206,6 +209,7 @@ def texts_pn_all(texts):
         sys.stdout.flush()
         pn = 0
         text = text.replace("#","")
+        text = re.sub(r'[a-z]+', "", text)
         for chunk in m.parse(text).splitlines()[:-1]:
             #(surface, feature) = chunk.split('\t')
             if len(chunk.split('\t')) != 2:
@@ -299,6 +303,7 @@ def main_all():
 def insta(word):
     start = time.time()
     texts = st.instagram(word,max_count)
+    texts = texts[:max_count]
     split_text = split_array(texts,num_process)
     print(len(split_text),"プロセス")
 
