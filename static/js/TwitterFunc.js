@@ -71,7 +71,7 @@ var tweet_piechart = new Chart(document.getElementById("twitterPiechart"), {
         backgroundColor: [
           "rgb(255, 99, 132)",
           "rgb(154,130,183)",
-          "rgb(54, 162, 235)"
+          "rgb(0,255,0)"
         ]
       }
     ]
@@ -83,6 +83,7 @@ var tweet_barchart = new Chart(document.getElementById("twitterBargraph"),{
     data:{
       labels: [tweet_bar_label1, tweet_bar_label2, tweet_bar_label3, tweet_bar_label4, tweet_bar_label5],
       datasets: [{
+        label: "関連ワード件数",
         data: [tweet_bar_count1,tweet_bar_count2,tweet_bar_count3, tweet_bar_count4, tweet_bar_count5],
         backgroundColor: ['#FF4444', '#4444FF', '#44BB44', '#FFFF44', '#FF44FF']
       }]
@@ -95,7 +96,7 @@ var tweet_barchart = new Chart(document.getElementById("twitterBargraph"),{
       title:{
         display: true,
         fontSize: 18,
-        text: '関連ワード'
+        text: ''
       },
       scales: {
         yAxis:[{

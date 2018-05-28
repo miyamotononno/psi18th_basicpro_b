@@ -6,11 +6,11 @@ var insta_bar_label2 = "2位";
 var insta_bar_label3 = "3位";
 var insta_bar_label4 = "4位";
 var insta_bar_label5 = "5位";
-var insta_bar_count1 = 0;
-var insta_bar_count2 = 0;
-var insta_bar_count3 = 0;
-var insta_bar_count4 = 0;
-var insta_bar_count5 = 0;
+var insta_bar_count1 = 1.0;
+var insta_bar_count2 = 0.8;
+var insta_bar_count3 = 0.6;
+var insta_bar_count4 = 0.4;
+var insta_bar_count5 = 0.2;
 
 
 var insta_input_value = "instagram";
@@ -71,7 +71,7 @@ var insta_piechart = new Chart(document.getElementById("instaPiechart"), {
         backgroundColor: [
           "rgb(255, 99, 132)",
           "rgb(154,130,183)",
-          "rgb(54, 162, 235)"
+          "rgb(0, 255, 0)"
         ]
       }
     ]
@@ -83,6 +83,7 @@ var insta_barchart = new Chart(document.getElementById("instaBargraph"),{
     data:{
       labels: [insta_bar_label1, insta_bar_label2, insta_bar_label3, insta_bar_label4, insta_bar_label5],
       datasets: [{
+        label:"関連ワード件数",
         data: [insta_bar_count1,insta_bar_count2,insta_bar_count3,insta_bar_count4 ,insta_bar_count5],
         backgroundColor: ['#FF4444', '#4444FF', '#44BB44', '#FFFF44', '#FF44FF']
       }]
@@ -95,14 +96,14 @@ var insta_barchart = new Chart(document.getElementById("instaBargraph"),{
       title:{
         display: true,
         fontSize: 18,
-        text: '関連ワード'
+        text: ''
       },
       scales: {
         yAxis:[{
           display: true,
           scaleLabel:{
             display: true,
-            labelString: '縦軸ラベル',
+            labelString: '件数',
             fontSize: 18
           },
           ticks:{
