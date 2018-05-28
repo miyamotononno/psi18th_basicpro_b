@@ -64,14 +64,14 @@ function onButtonInstagram(){
 var insta_piechart = new Chart(document.getElementById("instaPiechart"), {
   type: "doughnut",
   data: {
-    labels: ["ポジティブ","ネガティブ","中立"],
+    labels: ["ポジティブ","中立","ネガティブ"],
     datasets: [
       {
         data: [insta_positiveValue,insta_negativeValue,insta_neutralValue],
         backgroundColor: [
           "rgb(255, 99, 132)",
-          "rgb(154,130,183)",
-          "rgb(0, 255, 0)"
+          "rgb(0, 255, 0)",
+          "rgb(154,130,183)"
         ]
       }
     ]
