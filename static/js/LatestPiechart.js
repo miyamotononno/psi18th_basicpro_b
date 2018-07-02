@@ -1,10 +1,3 @@
-// var tweet_positiveValue = 238;
-// var tweet_negativeValue = 272;
-// var tweet_neutralValue = 411;
-// var insta_positiveValue = 1763;
-// var insta_negativeValue = 2206;
-// var insta_neutralValue = 5600;
-
 var tweet_positiveValue = 1763;
 var tweet_negativeValue = 2206;
 var tweet_neutralValue = 5600;
