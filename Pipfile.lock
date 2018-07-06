@@ -80,13 +80,6 @@
             ],
             "version": "==1.0"
         },
-        "mecab-python3": {
-            "hashes": [
-                "sha256:1e1b8a34ac63686dcaac19d8eaa2e0c265b679379d10c60ef5c22f571c79ed00"
-            ],
-            "index": "pypi",
-            "version": "==0.7"
-        },
         "oauthlib": {
             "hashes": [
                 "sha256:ac35665a61c1685c56336bda97d5eefa246f1202618a1d6f34fccb1bdd404162",
