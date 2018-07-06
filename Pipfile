@@ -9,7 +9,6 @@ flask = "*"
 "beautifulsoup4" = "*"
 selenium = "*"
 requests-oauthlib = "*"
-"mecab-python3" = "*"
 
 [dev-packages]
 
